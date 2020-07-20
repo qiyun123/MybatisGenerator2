@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- targetRuntime 要写Mybatis3，写其他的估计会报错，因为mysql现在的版本都很高了-->
+	<context id="DB2Tables" targetRuntime="Mybatis3">
+		<!--<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>-->
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<!-- nullCatalogMeansCurrent 在5.1.42中默认是true，而在6.0.6默认为false。-->
+		<!--mysql 连接-->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://172.119.0.12:3306/msp-market" userId="root"
+			password="x5">
+		</jdbcConnection>-->
+		<!--oracle 连接-->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+						connectionURL="jdbc:oracle:thin:@//172.119.0.12:1521/orcl" userId="top_test"
+						password="123456">
+		</jdbcConnection>
+
+		<!-- 引入自定义类型转换的实现类： 可以不用写 -->
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver >
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 设置Java类生成的位置 targetPackage:表示生成的路径，targetProject：表示生成的文件/项目下 ， 下面这个配置的意思就是：在src下生成com.yangxin.demo.dao.model-->
+		<javaModelGenerator targetPackage="com.faujor.demo.dao.model" targetProject="src/main/java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false"/>
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="false"/>
+		</javaModelGenerator>
+
+		<!-- 生成映射文件xml存放位置;targetPackage:自己的包名;targetProject:该文件你想放位置（路径的不要有中文） -->
+		<sqlMapGenerator targetPackage="com.faujor.demo.dao.mapper" targetProject="src/main/java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false"/>
+		</sqlMapGenerator>
+
+		<!-- 生成DAO的包名和位置-->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.faujor.demo.dao.mapper"
+							 targetProject="src/main/java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false"/>
+		</javaClientGenerator>
+
+		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+		<!--注意表需要设置主键，这样才能生成删除，查询，修改的方法，否则只有两个新增insert方法-->
+		<table tableName="sys_email" domainObjectName="SysEmail"
+			   enableCountByExample="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Oracle" identity="true"/>
+		</table>
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.faujor.demo.dao.mapper.SysEmailMapper" >
+  <resultMap id="BaseResultMap" type="com.faujor.demo.dao.model.SysEmail" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="EMAIL_STATUS" property="emailStatus" jdbcType="VARCHAR" />
+    <result column="EMAIL_SENDER" property="emailSender" jdbcType="VARCHAR" />
+    <result column="SEND_DATE" property="sendDate" jdbcType="DATE" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="DATE" />
+    <result column="EMAIL_CODE" property="emailCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.faujor.demo.dao.model.SysEmail" extends="BaseResultMap" >
+    <result column="EMAIL_CONTENT" property="emailContent" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EMAIL_STATUS, EMAIL_SENDER, SEND_DATE, CREATE_ID, CREATE_NAME, CREATE_DATE, UPDATE_ID, 
+    UPDATE_NAME, UPDATE_DATE, EMAIL_CODE
+  </sql>
+  <sql id="Blob_Column_List" >
+    EMAIL_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SYS_EMAIL
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_EMAIL
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.faujor.demo.dao.model.SysEmail" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      Oracle
+    </selectKey>
+    insert into SYS_EMAIL (EMAIL_STATUS, EMAIL_SENDER, SEND_DATE, 
+      CREATE_ID, CREATE_NAME, CREATE_DATE, 
+      UPDATE_ID, UPDATE_NAME, UPDATE_DATE, 
+      EMAIL_CODE, EMAIL_CONTENT)
+    values (#{emailStatus,jdbcType=VARCHAR}, #{emailSender,jdbcType=VARCHAR}, #{sendDate,jdbcType=DATE}, 
+      #{createId,jdbcType=VARCHAR}, #{createName,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+      #{updateId,jdbcType=VARCHAR}, #{updateName,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE}, 
+      #{emailCode,jdbcType=VARCHAR}, #{emailContent,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.faujor.demo.dao.model.SysEmail" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      Oracle
+    </selectKey>
+    insert into SYS_EMAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emailStatus != null" >
+        EMAIL_STATUS,
+      </if>
+      <if test="emailSender != null" >
+        EMAIL_SENDER,
+      </if>
+      <if test="sendDate != null" >
+        SEND_DATE,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID,
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="emailCode != null" >
+        EMAIL_CODE,
+      </if>
+      <if test="emailContent != null" >
+        EMAIL_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSender != null" >
+        #{emailSender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=DATE},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="emailCode != null" >
+        #{emailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailContent != null" >
+        #{emailContent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.faujor.demo.dao.model.SysEmail" >
+    update SYS_EMAIL
+    <set >
+      <if test="emailStatus != null" >
+        EMAIL_STATUS = #{emailStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emailSender != null" >
+        EMAIL_SENDER = #{emailSender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null" >
+        SEND_DATE = #{sendDate,jdbcType=DATE},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateId != null" >
+        UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="emailCode != null" >
+        EMAIL_CODE = #{emailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailContent != null" >
+        EMAIL_CONTENT = #{emailContent,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.faujor.demo.dao.model.SysEmail" >
+    update SYS_EMAIL
+    set EMAIL_STATUS = #{emailStatus,jdbcType=VARCHAR},
+      EMAIL_SENDER = #{emailSender,jdbcType=VARCHAR},
+      SEND_DATE = #{sendDate,jdbcType=DATE},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DATE},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=DATE},
+      EMAIL_CODE = #{emailCode,jdbcType=VARCHAR},
+      EMAIL_CONTENT = #{emailContent,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.faujor.demo.dao.model.SysEmail" >
+    update SYS_EMAIL
+    set EMAIL_STATUS = #{emailStatus,jdbcType=VARCHAR},
+      EMAIL_SENDER = #{emailSender,jdbcType=VARCHAR},
+      SEND_DATE = #{sendDate,jdbcType=DATE},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_NAME = #{createName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DATE},
+      UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+      UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=DATE},
+      EMAIL_CODE = #{emailCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 我就bb两句逻辑吧: conditions中存储的都是，key-value映射键值对，如果这个conditions不为空，那么我们将这些条件都拼接，并且使用的and连接-->
+  <select id="getByConditions" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    <where>
+      <choose>
+        <when test="conditions!= null">
+          <!-- 循环拼接-->
+          <foreach close="" collection="conditions" index="key" item="value" open="" separator="AND">
+            ${key}=#{value}
+          </foreach>
+        </when>
+      </choose>
+    </where>
+  </select>
+
+  <select id="getByConditionList" resultMap="BaseResultMap" parameterType="list">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    <where>
+      <choose>
+        <when test="conditions != null and conditions.size() > 0">
+          <foreach item="item" collection="conditions"
+                   open="" separator="AND" close="">
+            <choose>
+              <when test="item.opt == 'locate'">
+                locate(#{item.value}, ${item.key}) > 0
+              </when>
+              <when test="item.opt == 'in'">
+                ${item.key} in
+                <foreach item="itemIn" collection="item.value" open="(" separator="," close=")">
+                  #{itemIn}
+                </foreach>
+              </when>
+              <otherwise>
+                ${item.key} ${item.opt} #{item.value}
+              </otherwise>
+            </choose>
+          </foreach>
+        </when>
+      </choose>
+    </where>
+  </select>
+
+  <select id="getSortedResultByConditionList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    <where>
+      <choose>
+        <when test="conditions != null and conditions.size() > 0">
+          <foreach item="item" collection="conditions"
+                   open="" separator="AND" close="">
+            <choose>
+              <when test="item.opt != 'in'">
+                ${item.key} ${item.opt} #{item.value}
+              </when>
+              <otherwise>
+                ${item.key} ${item.opt} ${item.value}
+              </otherwise>
+            </choose>
+
+          </foreach>
+        </when>
+      </choose>
+    </where>
+    <choose>
+      <when test="sorter !=null">
+        order by ${sorter.field} ${sorter.sortType}
+      </when>
+    </choose>
+  </select>
+
+  <select id="getByIn" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from user
+    <where>
+      <choose>
+        <when test="field != null">
+          ${field} in
+          <foreach item="item" index="index" collection="set" open="(" separator="," close=")">
+            #{item}
+          </foreach>
+        </when>
+      </choose>
+    </where>
+  </select>
+</mapper>
